@@ -1,14 +1,16 @@
+let testObject = [
+    {
+        date : 'today',
+        ammount : 58
+    },
 
-import { compareAsc, format } from 'date-fns'
-
-format(new Date(2014, 1, 11), 'yyyy-MM-dd')
-//=> '2014-02-11'
-
-const dates = [
-  new Date(1995, 6, 2),
-  new Date(1987, 1, 11),
-  new Date(1989, 6, 10),
+    {
+        date : 'tomorrow',
+        ammount : 64
+    }
 ]
 
 
-console.log(dates.sort(compareAsc))
+localStorage.setItem('myCat', JSON.stringify(testObject));
+console.log(testObject)
+console.log(JSON.parse(localStorage.getItem('myCat')));
