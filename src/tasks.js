@@ -1,38 +1,48 @@
 
 
-
 const taskHandler = (function(){
     
     let taskStorage = [];
 
-    let testDate = {
-        date : 'today',
-        ammount : 59
+    const checkTasks = ()=>{
+        if(localStorage.getItem('myTasks') !== null){
+            taskStorage = JSON.parse(localStorage.getItem('myTasks'));
+        }
     }
 
-    if(localStorage.getItem('myTasks') !== null){
-        taskStorage = JSON.parse(localStorage.getItem('myTasks'));
-    }
-
-    const updateTaskStorage = ()=>{
+    const updateStorage = ()=>{
         localStorage.setItem('myTasks', JSON.stringify(taskStorage));
     }
 
-    const saveTask = ()=>{
-        taskStorage.push()
+    const save = (task)=>{
+        taskStorage.push(task);
+        console.log(taskStorage);
     }
 
-    const generateTaskInfo = (title,description,date,priority)=> {
+    const generateInfo = (title,date,priority)=> {
         let task = {};
     
         task.title = title;
-        task.description = description;
         task.date = date;
         task.priority = priority;
-    
+        task.complete = false;
+        
         return task;
     }
 
+    const remove = (task)=>{
+        taskStorage.splice(task,1);
+    }
+
+    return {
+        generateInfo,
+        save,
+        checkTasks,
+        updateStorage,
+        taskStorage
+    }
 
 
 })();
+
+export {taskHandler as default}

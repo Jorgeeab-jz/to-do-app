@@ -1,16 +1,16 @@
-let testObject = [
-    {
-        date : 'today',
-        ammount : 58
-    },
+import tasks from './tasks';
+import uiHandle from './interface';
 
-    {
-        date : 'tomorrow',
-        ammount : 64
-    }
-]
+const content = document.getElementById('content');
 
 
-localStorage.setItem('myCat', JSON.stringify(testObject));
-console.log(testObject)
-console.log(JSON.parse(localStorage.getItem('myCat')));
+tasks.save(tasks.generateInfo('title','description','tomorrow', 'low'));
+tasks.save(tasks.generateInfo('title','description','tomorrow', 'low'));
+tasks.updateStorage();
+
+tasks.taskStorage.forEach((task,i)=>{
+    console.log(task,i)
+    let newTask = uiHandle.createCard(task,i.toString())
+    console.log(newTask);
+    content.append(newTask);
+})
