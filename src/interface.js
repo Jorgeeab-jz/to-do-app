@@ -18,7 +18,7 @@ const interfaceHandler = (function(){
     }
 
     const createCard = (task,taskId) => {
-        let container = _createElement('div',['card'],taskId);
+        let container = _createElement('div',['card','col-sm-4'],taskId);
 
         let body = _createElement('div',['card-body']);
 

@@ -10,6 +10,10 @@ const taskHandler = (function(){
         }
     }
 
+    const getList = ()=>{
+        return taskStorage;
+    }
+
     const updateStorage = ()=>{
         localStorage.setItem('myTasks', JSON.stringify(taskStorage));
     }
@@ -19,13 +23,13 @@ const taskHandler = (function(){
         console.log(taskStorage);
     }
 
-    const generateInfo = (title,date,priority)=> {
+    const generateInfo = (title,date,timestamp)=> {
         let task = {};
     
         task.title = title;
         task.date = date;
-        task.priority = priority;
         task.complete = false;
+        task.timestamp = timestamp;
         
         return task;
     }
@@ -37,9 +41,10 @@ const taskHandler = (function(){
     return {
         generateInfo,
         save,
+        remove,
         checkTasks,
-        updateStorage,
-        taskStorage
+        getList,
+        updateStorage
     }
 
 
