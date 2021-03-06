@@ -20,7 +20,6 @@ const taskHandler = (function(){
 
     const save = (task)=>{
         taskStorage.push(task);
-        console.log(taskStorage);
     }
 
     const generateInfo = (title,date,timestamp)=> {
@@ -38,11 +37,16 @@ const taskHandler = (function(){
         taskStorage.splice(task,1);
     }
 
+    const changeStatus = (task)=>{
+        taskStorage[task].complete = !taskStorage[task].complete;
+    }
+
     return {
         generateInfo,
         save,
         remove,
         checkTasks,
+        changeStatus,
         getList,
         updateStorage
     }

@@ -14,7 +14,6 @@ let taskStamp;
 const datePicker = document.getElementById('taskDate');
 datePicker.addEventListener('change',function(){
     taskDate = format(parseISO(datePicker.value),"dd MMMMMMMM yyyy");
-    console.log(taskDate)
     taskStamp = getTime(parseISO(datePicker.value));
 });
 
@@ -26,12 +25,40 @@ function clear(){
 
 function drawTasks(){
     content.innerHTML = '';
+    tasks.getList().sort((a,b)=>{
+        return (a.timestamp) - (b.timestamp);
+    })
     tasks.getList().forEach((task,i)=>{
-        console.log(task,i)
-        let newTask = uiHandle.createCard(task,i.toString())
-        console.log(newTask);
+        let newTask = uiHandle.createCard(task,i.toString());
         content.append(newTask);
     });
+    actRemoveBtns();
+    actCompleteBtns();
+}
+
+function actRemoveBtns(){
+    [...document.querySelectorAll('.btn-danger')].forEach(btn=>{
+        let id = btn.dataset.taskId;
+        btn.addEventListener('click',function(){
+            tasks.remove(id);
+            tasks.updateStorage();
+            drawTasks();
+        })
+        
+    })
+}
+
+function actCompleteBtns(){
+    [...document.querySelectorAll('.complete-btn')].
+    forEach(btn=>{
+        let id = btn.dataset.taskId;
+        btn.addEventListener('click',function(){
+            tasks.changeStatus(id);
+            tasks.updateStorage();
+            drawTasks();
+            console.log('eyo')
+        })
+    })
 }
 
 function startApp(){
@@ -50,9 +77,11 @@ addBtn.addEventListener('click', function(){
     }else if(!isValid(thisDate)){
         alert('Please select a date.')
     }else if(isPast(thisDate)){
-        alert('You cant go back in time silly');
+        alert("You can't go back in time, silly");
     }
 });
+
+
 
 startApp()
 

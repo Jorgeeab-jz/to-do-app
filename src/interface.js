@@ -1,4 +1,4 @@
-
+import tasks from './tasks';
 
 const interfaceHandler = (function(){
 
@@ -24,18 +24,26 @@ const interfaceHandler = (function(){
 
         let title = _createElement('h5',['card-title']);
         title.innerText = task.title;
+        
         let description = _createElement('p',['card-text']);
         description.innerText = task.date;
-        let completeBtn = _createElement('a',['btn', 'btn-primary']);
-        completeBtn.innerText = 'Complete';
+        
+        let completeBtn = _createElement('a',['btn', 'btn-primary','complete-btn']);
+        if(task.complete){
+            completeBtn.classList.add('complete');
+            completeBtn.innerText = 'Completed';
+        }else{
+            completeBtn.innerText = 'Complete';
+        }
         completeBtn.dataset.taskId = taskId;
+        
         let removeBtn = _createElement('a',['btn','btn-danger']);
         removeBtn.innerText = 'Delete';
         removeBtn.dataset.taskId = taskId;
+        
         body.append(title,description,completeBtn,removeBtn)
         container.append(body);
 
-        console.log(container)
         return container;
 
     }
